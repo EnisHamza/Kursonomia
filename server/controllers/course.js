@@ -493,3 +493,31 @@ export const markIncomplete = async (req, res) => {
     console.log(err);
   }
 };
+
+export const createCourseReview = async (req, res) => {
+  try {
+    console.log("Request body:", req.body); // Log incoming data
+    const { rating, comment, name } = req.body;
+    const course = await Course.findById(req.params.courseId);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Ensure the review object includes all required fields
+    const review = { name, rating, comment, user: req.user._id };
+    console.log("Review object:", review); // Log the review object
+
+    course.reviews.push(review);
+    course.numReviews = course.reviews.length;
+    course.rating =
+      course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.numReviews;
+
+    await course.save();
+
+    res.status(201).json({ message: "Review added successfully" });
+  } catch (error) {
+    console.error("Error in createCourseReview:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

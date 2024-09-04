@@ -1,10 +1,10 @@
-import { Card, Badge } from "antd";
+import { Card, Badge, Rate } from "antd";
 import Link from "next/link";
 import { currencyFormatter } from "../../utils/helpers";
 
 const { Meta } = Card;
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, averageRating }) => {
   const { name, instructor, price, image, slug, paid, category } = course;
 
   return (

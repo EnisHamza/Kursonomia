@@ -34,16 +34,14 @@ const BecomeInstructor = () => {
 
   return (
     <>
-      <h1 className="p-5 jumbotron text-center bg-primary">
-        Become Instructor
-      </h1>
+      <h1 className="p-5 jumbotron text-center bg-primary">Publish Courses</h1>
       <br />
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3 text-center">
             <div className="pt-4">
               <UserSwitchOutlined className="display-1" />
-              <h1>Setup payout to public courses on Kursonomia</h1>
+              <h1>Setup payout to publish courses on Kursonomia</h1>
               <br />
               <h6 className="load text-warning">
                 Kursonomia partners with Stripe to transfer earnings to your

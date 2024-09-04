@@ -45,7 +45,7 @@ const TopNav = () => {
       theme="dark"
       mode="horizontal"
       selectedKeys={[current]}
-      className="border-bottom border-primary border-3"
+      className="border-bottom border-primary border-2"
     >
       <Menu.Item
         key="/"
@@ -57,26 +57,34 @@ const TopNav = () => {
         </Link>
       </Menu.Item>
 
-      {user && user.role && user.role.includes("Instructor") ? (
-        <Menu.Item
-          key="/instructor/course/create"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<CarryOutOutlined />}
-        >
-          <Link href="/instructor/course/create">
-            <a>Create Course</a>
-          </Link>
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          key="/user/become-instructor"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<UsergroupAddOutlined />}
-        >
-          <Link href="/user/become-instructor">
-            <a>Become Instructor</a>
-          </Link>
-        </Menu.Item>
+      {user && user.isInstructor && (
+        <>
+          {/* Show 'Become Instructor' if user is not an Instructor */}
+          {!user.role.includes("Instructor") && (
+            <Menu.Item
+              key="/user/become-instructor"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<TeamOutlined />}
+            >
+              <Link href="/user/become-instructor">
+                <a>Publish Courses</a>
+              </Link>
+            </Menu.Item>
+          )}
+
+          {/* Show 'Create Course' if user is an Instructor */}
+          {user.role.includes("Instructor") && (
+            <Menu.Item
+              key="/instructor/course/create"
+              onClick={(e) => setCurrent(e.key)}
+              icon={<CarryOutOutlined />}
+            >
+              <Link href="/instructor/course/create">
+                <a>Create Course</a>
+              </Link>
+            </Menu.Item>
+          )}
+        </>
       )}
 
       {user == null && (
@@ -95,6 +103,7 @@ const TopNav = () => {
             key="/register"
             onClick={(e) => setCurrent(e.key)}
             icon={<UserAddOutlined />}
+            className="ms-auto"
           >
             <Link href="/register">
               <a>Register</a>

@@ -74,7 +74,7 @@ const Login = () => {
             type="submit"
             className="form-control mb-2 p-2 btn btn-block"
             disabled={!email || !password || loading}
-            style={{ backgroundColor: "#b02cb4", color: "white" }}
+            style={{ backgroundColor: "#6a00ff", color: "white" }}
           >
             {loading ? <SyncOutlined spin /> : "Submit"}
           </button>

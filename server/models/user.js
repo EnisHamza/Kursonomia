@@ -23,6 +23,10 @@ const userSchema = new Schema(
       min: 6,
       max: 32,
     },
+    isInstructor: {
+      type: Boolean,
+      default: false,
+    },
     picture: {
       type: String,
       default: "/avatar.png",

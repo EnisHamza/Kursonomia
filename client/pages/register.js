@@ -10,6 +10,7 @@ const Register = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isInstructor, setIsInstructor] = useState();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -30,12 +31,14 @@ const Register = () => {
         name,
         email,
         password,
+        isInstructor,
       });
       //console.log("Register Response", data);
       toast("Registration Successful. Please Login");
       setName("");
       setEmail("");
       setPassword("");
+      setIsInstructor("");
       setLoading(false);
     } catch (err) {
       toast.error(err.response.data);
@@ -67,18 +70,29 @@ const Register = () => {
           />
           <input
             type="password"
-            className="form-control mb-4 p-3"
+            className="form-control mb-3 p-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             required
           />
+          <label className="d-flex justify-content-center">
+            <input
+              type="radio"
+              className="mx-2"
+              value="instructor"
+              checked={isInstructor === "instructor"}
+              onChange={() => setIsInstructor("instructor")}
+              required
+            />
+            Register as Instructor
+          </label>
           <br />
           <button
             type="submit"
             className="form-control mb-2 p-2 btn btn-block"
             disabled={!name || !email || !password || loading}
-            style={{ backgroundColor: "#b02cb4", color: "white" }}
+            style={{ backgroundColor: "#6a00ff", color: "white" }}
           >
             {loading ? <SyncOutlined spin /> : "Submit"}
           </button>

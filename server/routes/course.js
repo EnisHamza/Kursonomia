@@ -27,6 +27,7 @@ import {
   markCompleted,
   listCompleted,
   markIncomplete,
+  createCourseReview,
 } from "../controllers/course";
 
 router.get("/courses", courses);
@@ -44,6 +45,7 @@ router.post(
   formidable(),
   uploadVideo
 );
+router.post("/course/:courseId/review", requireSignin, createCourseReview);
 router.post("/course/video-remove/:instructorId", requireSignin, removeVideo);
 
 router.put("/course/publish/:courseId", requireSignin, publishCourse);

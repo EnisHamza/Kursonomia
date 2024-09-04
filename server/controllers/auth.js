@@ -15,25 +15,34 @@ const SES = new AWS.SES(awsConfig);
 
 export const register = async (req, res) => {
   try {
-    //console.log(req.body);
-    const { name, email, password } = req.body;
+    const { name, email, password, isInstructor } = req.body;
+
+    // Validate the input
     if (!name) return res.status(400).send("Name is required");
     if (!password || password.length < 6) {
       return res
         .status(400)
-        .send("Password is required and should be min 6 characters long");
+        .send("Password is required and should be at least 6 characters long");
     }
+
+    // Check if user already exists
     let userExists = await User.findOne({ email }).exec();
     if (userExists) return res.status(400).send("Email is taken");
 
+    // Hash the password
     const hashedPassword = await hashPassword(password);
 
+    // Create a new user instance with the isInstructor field
     const user = new User({
       name,
       email,
       password: hashedPassword,
+      isInstructor: !!isInstructor, // Convert isInstructor to a boolean if it's not already
     });
+
+    // Save the user to the database
     await user.save();
+
     console.log("Saved User", user);
     return res.json({ ok: true });
   } catch (err) {
@@ -90,7 +99,7 @@ export const sendTestEmail = async (req, res) => {
   const params = {
     Source: process.env.EMAIL_FROM,
     Destination: {
-      ToAddresses: ["eh51142@ubt-uni.net"],
+      ToAddresses: ["eniss.hamza@gmail.com"],
     },
     ReplyToAddresses: [process.env.EMAIL_FROM],
     Message: {

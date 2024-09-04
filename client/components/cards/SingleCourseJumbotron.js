@@ -1,6 +1,6 @@
 import { currencyFormatter } from "../../utils/helpers";
 import ReactPlayer from "react-player";
-import { Badge, Modal, Button } from "antd";
+import { Badge, Modal, Button, Rate } from "antd";
 import { LoadingOutlined, SafetyOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 
@@ -16,6 +16,7 @@ const SingleCourseJumbotron = ({
   handleFreeEnrollment,
   enrolled,
   setEnrolled,
+  averageRating,
 }) => {
   const {
     name,
@@ -44,6 +45,11 @@ const SingleCourseJumbotron = ({
           <br></br>
           <p>Created By {instructor.name}</p>
           <p>Last updated {new Date(updatedAt).toLocaleDateString()}</p>
+          <p className="text-light">
+            Rating: &nbsp;
+            <Rate disabled value={averageRating} />
+          </p>
+
           <h4 className="text-light">
             <br></br>
             {paid
