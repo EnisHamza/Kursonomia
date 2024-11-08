@@ -21,16 +21,10 @@ import { toast } from "react-toastify";
 import SubMenu from "antd/lib/menu/SubMenu";
 
 const TopNav = () => {
-  const [current, setCurrent] = useState("");
-
   const { state, dispatch } = useContext(Context);
   const { user } = state;
 
   const router = useRouter();
-
-  useEffect(() => {
-    process.browser && setCurrent(window.location.pathname);
-  }, [process.browser && window.location.pathname]);
 
   const logout = async () => {
     dispatch({ type: "LOGOUT" });
@@ -42,18 +36,16 @@ const TopNav = () => {
 
   return (
     <Menu
-      theme="dark"
       mode="horizontal"
-      selectedKeys={[current]}
-      className="border-bottom border-primary border-2"
+      className="border-bottom border-dark border-1"
+      style={{ backgroundColor: "black" }}
     >
-      <Menu.Item
-        key="/"
-        onClick={(e) => setCurrent(e.key)}
-        icon={<ReadOutlined />}
-      >
+      <Menu.Item key="/">
         <Link href="/">
-          <a>Kursonomia</a>
+          <img
+            src="images/llogo.png"
+            style={{ height: "40px", width: "250px" }}
+          />
         </Link>
       </Menu.Item>
 
@@ -63,11 +55,11 @@ const TopNav = () => {
           {!user.role.includes("Instructor") && (
             <Menu.Item
               key="/user/become-instructor"
-              onClick={(e) => setCurrent(e.key)}
+              className="text-white"
               icon={<TeamOutlined />}
             >
               <Link href="/user/become-instructor">
-                <a>Publish Courses</a>
+                <a className="text-white">Publish Courses</a>
               </Link>
             </Menu.Item>
           )}
@@ -76,11 +68,11 @@ const TopNav = () => {
           {user.role.includes("Instructor") && (
             <Menu.Item
               key="/instructor/course/create"
-              onClick={(e) => setCurrent(e.key)}
+              className="text-white"
               icon={<CarryOutOutlined />}
             >
               <Link href="/instructor/course/create">
-                <a>Create Course</a>
+                <a className="text-white">Create Course</a>
               </Link>
             </Menu.Item>
           )}
@@ -91,22 +83,21 @@ const TopNav = () => {
         <>
           <Menu.Item
             key="/login"
-            onClick={(e) => setCurrent(e.key)}
+            className="text-white"
             icon={<UserOutlined />}
           >
             <Link href="/login">
-              <a>Login</a>
+              <a className="text-white">Login</a>
             </Link>
           </Menu.Item>
 
           <Menu.Item
             key="/register"
-            onClick={(e) => setCurrent(e.key)}
             icon={<UserAddOutlined />}
-            className="ms-auto"
+            className="ms-auto text-white"
           >
             <Link href="/register">
-              <a>Register</a>
+              <a className="text-white">Register</a>
             </Link>
           </Menu.Item>
         </>
@@ -115,11 +106,11 @@ const TopNav = () => {
       {user && user.role && user.role.includes("Instructor") && (
         <Menu.Item
           key="/instructor"
-          onClick={(e) => setCurrent(e.key)}
+          className="text-white"
           icon={<TeamOutlined />}
         >
           <Link href="/instructor">
-            <a>Instructor</a>
+            <a className="text-white">Instructor</a>
           </Link>
         </Menu.Item>
       )}
@@ -128,7 +119,7 @@ const TopNav = () => {
         <SubMenu
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          className="ms-auto"
+          className="ms-auto text-white"
         >
           <Menu.ItemGroup>
             <Menu.Item key="/user" icon={<DashboardOutlined />}>
