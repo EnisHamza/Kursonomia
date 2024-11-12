@@ -4,9 +4,10 @@ import { readdirSync } from "fs";
 import mongoose from "mongoose";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import dotenv from "dotenv";
 
-const morgan = require("morgan");
-require("dotenv").config();
+dotenv.config();
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -30,8 +31,30 @@ app.use(express.json({ limit: "5mb" }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-//route
-readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+const loadRoutes = async () => {
+  const routeFiles = readdirSync("./routes");
+
+  for (const routeFile of routeFiles) {
+    if (routeFile.endsWith(".js")) {
+      const routePath = `./routes/${routeFile}`;
+      try {
+        const routeModule = await import(routePath);
+        app.use("/api", routeModule.default);
+      } catch (error) {
+        console.error(`Error loading route ${routeFile}:`, error);
+      }
+    } else if (fs.statSync(`./routes/${routeFile}`).isDirectory()) {
+      // Optionally, check if it's a directory and load index.js from there
+      const routePath = `./routes/${routeFile}/index.js`;
+      try {
+        const routeModule = await import(routePath);
+        app.use("/api", routeModule.default);
+      } catch (error) {
+        console.error(`Error loading route directory ${routeFile}:`, error);
+      }
+    }
+  }
+};
 
 //csrf
 app.use(csrfProtection);
