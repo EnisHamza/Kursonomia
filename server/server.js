@@ -4,10 +4,9 @@ import { readdirSync } from "fs";
 import mongoose from "mongoose";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
-import morgan from "morgan";
-import dotenv from "dotenv";
 
-dotenv.config();
+const morgan = require("morgan");
+require("dotenv").config();
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -16,12 +15,7 @@ const app = express();
 
 //databaza
 mongoose
-  .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
+  .connect(process.env.DATABASE)
   .then(() => console.log("Database Connected Successfully"))
   .catch((err) => console.log("DB Connection Error ->", err));
 
@@ -31,30 +25,8 @@ app.use(express.json({ limit: "5mb" }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-const loadRoutes = async () => {
-  const routeFiles = readdirSync("./routes");
-
-  for (const routeFile of routeFiles) {
-    if (routeFile.endsWith(".js")) {
-      const routePath = `./routes/${routeFile}`;
-      try {
-        const routeModule = await import(routePath);
-        app.use("/api", routeModule.default);
-      } catch (error) {
-        console.error(`Error loading route ${routeFile}:`, error);
-      }
-    } else if (fs.statSync(`./routes/${routeFile}`).isDirectory()) {
-      // Optionally, check if it's a directory and load index.js from there
-      const routePath = `./routes/${routeFile}/index.js`;
-      try {
-        const routeModule = await import(routePath);
-        app.use("/api", routeModule.default);
-      } catch (error) {
-        console.error(`Error loading route directory ${routeFile}:`, error);
-      }
-    }
-  }
-};
+//route
+readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
 //csrf
 app.use(csrfProtection);
