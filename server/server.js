@@ -15,7 +15,10 @@ const app = express();
 
 //databaza
 mongoose
-  .connect(process.env.DATABASE)
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true, // Ensure this is enabled
+  })
   .then(() => console.log("Database Connected Successfully"))
   .catch((err) => console.log("DB Connection Error ->", err));
 
