@@ -5,9 +5,8 @@ import slugify from "slugify";
 import Completed from "../models/completed";
 import { readFileSync } from "fs";
 import User from "../models/user";
-import Stripe from "stripe";
-const stripe = Stripe(process.env.STRIPE_SECRET);
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
