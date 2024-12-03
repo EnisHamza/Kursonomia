@@ -21,7 +21,7 @@
     "express-formidable": "^1.2.0",
     "express-jwt": "^6.1.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.13.3",
+    "mongoose": "^5.12.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.3.4",
     "nodemon": "^2.0.7",
