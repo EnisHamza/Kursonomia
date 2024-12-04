@@ -1,9 +1,48 @@
-.jumbotron{
-    background-image: linear-gradient(to top, #6a00ff, #000);
-    color: #fff;
-    
+.jumbotron {
+  background-image: linear-gradient(to top, #6a00ff, #000);
+  color: #fff;
 }
-h2{
-    color: #fff
+h2 {
+  color: #fff;
 }
-/* f700ff */
+/* f700ff */ /* Basic styling for the navigation container */
+.topnav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  position: relative;
+}
+
+/* Button to trigger Drawer for small screens */
+.menu-button {
+  display: none;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  /* Show the menu button on small screens */
+  .menu-button {
+    display: block;
+  }
+
+  /* Hide horizontal menu on small screens */
+  .ant-menu-horizontal {
+    display: none;
+  }
+
+  /* Custom Drawer styles */
+  .ant-drawer .ant-menu {
+    background-color: white;
+    color: white;
+  }
+
+  /* Styling for the Drawer menu */
+  .responsive-menu .ant-menu-item {
+    color: white;
+  }
+
+  .ant-drawer-title {
+    color: white;
+  }
+}
