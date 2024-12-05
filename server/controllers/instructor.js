@@ -1,7 +1,9 @@
-import User from "../models/user";
-import Course from "../models/course";
+import User from "../models/user.js";
+import Course from "../models/course.js";
 import queryString from "query-string";
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+import Stripe from "stripe";
+
+const stripe = Stripe(process.env.STRIPE_SECRET);
 
 export const makeInstructor = async (req, res) => {
   try {

@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-import { requireSignin } from "../middlewares";
+import { requireSignin } from "../middlewares/index.js";
 
 import {
   register,
@@ -12,7 +12,7 @@ import {
   sendTestEmail,
   forgotPassword,
   resetPassword,
-} from "../controllers/auth";
+} from "../controllers/auth.js";
 
 router.post("/register", register);
 router.post("/login", login);
@@ -22,4 +22,4 @@ router.get("/send-email", sendTestEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 
-module.exports = router;
+export default router;

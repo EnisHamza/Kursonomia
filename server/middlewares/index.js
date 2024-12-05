@@ -1,6 +1,6 @@
 import expressJwt from "express-jwt";
-import User from "../models/user";
-import Course from "../models/course";
+import User from "../models/user.js";
+import Course from "../models/course.js";
 
 export const requireSignin = expressJwt({
   getToken: (req, res) => req.cookies.token,

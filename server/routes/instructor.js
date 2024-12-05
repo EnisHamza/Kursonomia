@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-import { requireSignin } from "../middlewares";
+import { requireSignin } from "../middlewares/index.js";
 
 import {
   makeInstructor,
@@ -12,7 +12,7 @@ import {
   studentCount,
   instructorBalance,
   instructorPayoutSettings,
-} from "../controllers/instructor";
+} from "../controllers/instructor.js";
 
 router.post("/make-instructor", requireSignin, makeInstructor);
 router.post("/get-account-status", requireSignin, getAccountStatus);
@@ -29,4 +29,4 @@ router.get(
   instructorPayoutSettings
 );
 
-module.exports = router;
+export default router;

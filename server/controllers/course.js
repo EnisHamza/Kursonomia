@@ -1,12 +1,13 @@
 import AWS from "aws-sdk";
 import { nanoid } from "nanoid";
-import Course from "../models/course";
+import Course from "../models/course.js";
 import slugify from "slugify";
-import Completed from "../models/completed";
+import Completed from "../models/completed.js";
 import { readFileSync } from "fs";
-import User from "../models/user";
+import User from "../models/user.js";
+import Stripe from "stripe";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const stripe = Stripe(process.env.STRIPE_SECRET);
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,

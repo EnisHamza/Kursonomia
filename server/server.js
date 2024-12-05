@@ -4,10 +4,10 @@ import { readdirSync } from "fs";
 import mongoose from "mongoose";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import dotenv from "dotenv";
 
-require = require("esm")(module);
-const morgan = require("morgan");
-require("dotenv").config();
+dotenv.config();
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -32,7 +32,11 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 //route
-readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+const routeFiles = readdirSync("./routes");
+routeFiles.forEach(async (file) => {
+  const route = await import(`./routes/${file}`);
+  app.use("/api", route.default); // Ensure your route exports are default
+});
 
 //csrf
 app.use(csrfProtection);

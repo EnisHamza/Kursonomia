@@ -3,7 +3,11 @@ import formidable from "express-formidable";
 
 const router = express.Router();
 
-import { isInstructor, requireSignin, isEnrolled } from "../middlewares";
+import {
+  isInstructor,
+  requireSignin,
+  isEnrolled,
+} from "../middlewares/index.js";
 
 import {
   uploadImage,
@@ -28,7 +32,7 @@ import {
   listCompleted,
   markIncomplete,
   createCourseReview,
-} from "../controllers/course";
+} from "../controllers/course.js";
 
 router.get("/courses", courses);
 
@@ -69,4 +73,4 @@ router.post("/mark-completed", requireSignin, markCompleted);
 router.post("/list-completed", requireSignin, listCompleted);
 router.post("/mark-incomplete", requireSignin, markIncomplete);
 
-module.exports = router;
+export default router;
