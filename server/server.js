@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
 
+require = require("esm")(module);
 const morgan = require("morgan");
 require("dotenv").config();
 
