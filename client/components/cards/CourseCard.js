@@ -1,4 +1,4 @@
-import { Card, Badge, Rate } from "antd";
+import { Card, Badge } from "antd";
 import Link from "next/link";
 import { currencyFormatter } from "../../utils/helpers";
 
@@ -11,18 +11,12 @@ const CourseCard = ({ course, averageRating }) => {
     <Link href={`/course/${slug}`}>
       <a>
         <Card
-          className="mb-4 border border-dark border-3 rounded mt-2 mb-5 mx-auto"
-          style={{ width: "400px" }}
+          className="course-card mb-4 border border-dark border-3 rounded mt-2 mb-5 mx-auto"
           cover={
             <img
               src={image.Location}
               alt={name}
-              style={{
-                height: "250px",
-                //width: "200px",
-                //objectFit: "cover",
-              }}
-              className="p-2 mx-auto"
+              className="course-card-image p-2 mx-auto"
             />
           }
         >

@@ -11,6 +11,7 @@ import {
   UserOutlined,
   CarryOutOutlined,
   TeamOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import { Context } from "../context/index";
 import axios from "axios";
@@ -70,7 +71,7 @@ const TopNav = () => {
                   </Link>
                 </Menu.Item>
               )}
-              {user.role.includes("Instructor") && (
+              {/*} {user.role.includes("Instructor") && (
                 <Menu.Item
                   key="/instructor/course/create"
                   className="text-white"
@@ -80,7 +81,7 @@ const TopNav = () => {
                     <a className="text-white">Create Course</a>
                   </Link>
                 </Menu.Item>
-              )}
+              )}*/}
             </>
           )}
 
@@ -160,10 +161,22 @@ const TopNav = () => {
         placement="left"
         onClose={closeDrawer}
         visible={visible}
-        width={250}
-        bodyStyle={{ backgroundColor: "black", color: "white" }}
+        width={210}
+        bodyStyle={{ backgroundColor: "black", color: "black" }}
       >
+        <Link href="/">
+          <img
+            src="images/llogo.png"
+            style={{ height: "40px", width: "160px" }}
+            alt="Logo"
+          />
+        </Link>
         <Menu mode="inline" className="responsive-menu" onClick={closeDrawer}>
+          <Menu.Item key="/" icon={<HomeOutlined />} className="text-black">
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </Menu.Item>
           {user && user.role && user.role.includes("Instructor") && (
             <Menu.Item
               key="/instructor"

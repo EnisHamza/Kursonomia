@@ -23,6 +23,8 @@ h2 {
 @media (max-width: 768px) {
   /* Show the menu button on small screens */
   .menu-button {
+    height: 40px;
+    width: 40px;
     display: block;
   }
 
@@ -43,6 +45,48 @@ h2 {
   }
 
   .ant-drawer-title {
-    color: white;
+    color: black;
+  }
+}
+
+/* Base styles for CourseCard */
+.course-card {
+  width: 100%;
+  max-width: 400px; /* Default max-width for larger screens */
+  margin: auto;
+  display: block;
+}
+
+.course-card-image {
+  width: 100%; /* Ensures the image takes the full width of the card */
+  height: 200px;
+  object-fit: cover; /* Ensures the image covers the space without stretching */
+  border-radius: 8px; /* Adds a slight border radius for image */
+}
+
+/* Styling for larger screens (desktops) */
+@media (min-width: 1024px) {
+  .course-card {
+    max-width: 400px; /* Keep card width fixed for large screens */
+  }
+}
+
+/* Styling for tablets */
+@media (max-width: 1024px) {
+  .course-card {
+    max-width: 350px; /* Slightly smaller card on tablets */
+  }
+}
+
+/* Styling for mobile screens */
+@media (max-width: 768px) {
+  .course-card {
+    max-width: 100%; /* Card takes full width on small screens */
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .course-card-image {
+    height: 150px; /* Make the image shorter on mobile screens */
   }
 }
