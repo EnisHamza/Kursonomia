@@ -14,7 +14,7 @@ app
       server.use(
         "/api",
         createProxyMiddleware({
-          target: "http://localhost:8000",
+          target: "https://kursonomia-server.onrender.com",
           changeOrigin: true,
         })
       );
@@ -24,7 +24,7 @@ app
     });
     server.listen(3000, (err) => {
       if (err) throw err;
-      console.log("> Ready on http://localhost:8000");
+      console.log("> Ready on https://kursonomia-server.onrender.com");
     });
   })
   .catch((err) => {
