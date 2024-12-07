@@ -23,7 +23,7 @@
     "express-jwt": "^6.1.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb-client-encryption": "^6.1.0",
-    "mongoose": "^5.12.0",
+    "mongoose": "^6.13.5",
     "morgan": "^1.10.0",
     "nanoid": "^3.3.4",
     "nodemon": "^2.0.7",
