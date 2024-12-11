@@ -20,7 +20,7 @@ const BecomeInstructor = () => {
     //console.log("Become Instructor");
     setLoading(true);
     axios
-      .post("https://kursonomia-server.onrender.com/api/make-instructor")
+      .post("/api/make-instructor")
       .then((res) => {
         console.log(res);
         window.location.href = res.data;

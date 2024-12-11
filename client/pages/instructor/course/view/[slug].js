@@ -42,19 +42,14 @@ const CourseView = () => {
   }, [course]);
 
   const loadCourse = async () => {
-    const { data } = await axios.get(
-      `https://kursonomia-server.onrender.com/api/course/${slug}`
-    );
+    const { data } = await axios.get(`/api/course/${slug}`);
     setCourse(data);
   };
 
   const studentCount = async () => {
-    const { data } = await axios.post(
-      "https://kursonomia-server.onrender.com/api/instructor/student-count",
-      {
-        courseId: course._id,
-      }
-    );
+    const { data } = await axios.post("/api/instructor/student-count", {
+      courseId: course._id,
+    });
     console.log("Student Count", data);
     setStudents(data.length);
   };
@@ -64,7 +59,7 @@ const CourseView = () => {
     //console.log(values);
     try {
       const { data } = await axios.post(
-        `https://kursonomia-server.onrender.com/api/course/lesson/${slug}/${course.instructor._id}`,
+        `/api/course/lesson/${slug}/${course.instructor._id}`,
         values
       );
       //console.log(data);
@@ -90,7 +85,7 @@ const CourseView = () => {
       videoData.append("video", file);
 
       const { data } = await axios.post(
-        `https://kursonomia-server.onrender.com/api/course/video-upload/${course.instructor._id}`,
+        `/api/course/video-upload/${course.instructor._id}`,
         videoData,
         {
           onUploadProgress: (e) => {
@@ -113,7 +108,7 @@ const CourseView = () => {
     try {
       setUploading(true);
       const { data } = await axios.post(
-        `https://kursonomia-server.onrender.com/api/course/video-remove/${course.instructor._id}`,
+        `/api/course/video-remove/${course.instructor._id}`,
         values.video
       );
       console.log(data);
@@ -134,9 +129,7 @@ const CourseView = () => {
         "Once you publish the course, it will appear in the marketplace"
       );
       if (!answer) return;
-      const { data } = await axios.put(
-        `https://kursonomia-server.onrender.com/api/course/publish/${courseId}`
-      );
+      const { data } = await axios.put(`/api/course/publish/${courseId}`);
       setCourse(data);
       toast("Great! Your course is now live");
     } catch (err) {
@@ -150,9 +143,7 @@ const CourseView = () => {
         "Once you unpublish the course, it will not be available in the marketplace"
       );
       if (!answer) return;
-      const { data } = await axios.put(
-        `https://kursonomia-server.onrender.com/api/course/unpublish/${courseId}`
-      );
+      const { data } = await axios.put(`/api/course/unpublish/${courseId}`);
       setCourse(data);
       toast("Your course is unpublished");
     } catch (err) {

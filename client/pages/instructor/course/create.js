@@ -36,12 +36,9 @@ const CreateCourse = () => {
 
     Resizer.imageFileResizer(file, 720, 500, "JPEG", 100, 0, async (uri) => {
       try {
-        let { data } = await axios.post(
-          "https://kursonomia-server.onrender.com/api/course/upload-image",
-          {
-            image: uri,
-          }
-        );
+        let { data } = await axios.post("/api/course/upload-image", {
+          image: uri,
+        });
         console.log("Image Uploaded", data);
         setImage(data);
         setValues({ ...values, loading: false });
@@ -57,10 +54,7 @@ const CreateCourse = () => {
     //console.log("Remove Image");
     try {
       setValues({ ...values, loading: true });
-      const res = await axios.post(
-        "https://kursonomia-server.onrender.com/api/course/remove-image",
-        { image }
-      );
+      const res = await axios.post("/api/course/remove-image", { image });
       setImage({});
       setPreview("");
       setUploadButtonText("Upload Image");
@@ -76,13 +70,10 @@ const CreateCourse = () => {
     e.preventDefault();
     //console.log(values);
     try {
-      const { data } = await axios.post(
-        "https://kursonomia-server.onrender.com/api/course",
-        {
-          ...values,
-          image,
-        }
-      );
+      const { data } = await axios.post("/api/course", {
+        ...values,
+        image,
+      });
       toast("Great! Now you can start the lessons");
       router.push("/instructor");
     } catch (err) {

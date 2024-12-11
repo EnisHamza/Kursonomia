@@ -13,9 +13,7 @@ const StripeSuccess = () => {
   }, [id]);
 
   const successRequest = async () => {
-    const { data } = await axios.get(
-      `https://kursonomia-server.onrender.com/api/stripe-success/${id}`
-    );
+    const { data } = await axios.get(`/api/stripe-success/${id}`);
     //console.log("Success Requesting data", data);
     router.push(`/user/course/${data.course.slug}`);
   };
