@@ -16,14 +16,12 @@ const SingleCourse = ({ course }) => {
   const [enrolled, setEnrolled] = useState({});
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [reviews, setReviews] = useState(course?.reviews || []); // Default to empty array
+  const [reviews, setReviews] = useState(course.reviews || []);
   const [averageRating, setAverageRating] = useState(0);
 
   const {
     state: { user },
   } = useContext(Context);
-
-  const router = useRouter();
 
   useEffect(() => {
     // Calculate average rating when reviews change
@@ -52,6 +50,9 @@ const SingleCourse = ({ course }) => {
     console.log("Check Enrollment", data);
     setEnrolled(data);
   };
+
+  const router = useRouter();
+  const { slug } = router.query;
 
   const handlePaidEnrollment = async () => {
     try {
@@ -143,7 +144,7 @@ const SingleCourse = ({ course }) => {
         preview={preview}
       />
 
-      {course?.lessons?.length > 0 && (
+      {course.lessons && (
         <SingleCourseLessons
           lessons={course.lessons}
           setPreview={setPreview}
@@ -151,7 +152,6 @@ const SingleCourse = ({ course }) => {
           setShowModal={setShowModal}
         />
       )}
-
       <div className="bg-light border mt-5">
         <div className="reviews-section mt-5 mx-5 col-md-10">
           <h3 className="mb-3 mt-4">Reviews</h3>
@@ -218,23 +218,13 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-// Fetch course data on the server side
-/*export async function getServerSideProps({ query }) {
-  try {
-    const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
-    return {
-      props: {
-        course: data || {}, // Return an empty object if `data` is undefined
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching course data:", error);
-    return {
-      props: {
-        course: {}, // Return an empty object in case of an error
-      },
-    };
-  }
-}*/
+export async function getServerSideProps({ query }) {
+  const { data } = await axios.get(`${pzrocess.env.API}/course/${query.slug}`);
+  return {
+    props: {
+      course: data,
+    },
+  };
+}
 
 export default SingleCourse;
