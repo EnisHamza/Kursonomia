@@ -26,7 +26,10 @@ const ForgotPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/forgot-password", { email });
+      const { data } = await axios.post(
+        "https://kursonomia-server.onrender.com/api/forgot-password",
+        { email }
+      );
       setSuccess(true);
       toast("Check your email for the code");
       setLoading(false);
@@ -42,11 +45,14 @@ const ForgotPassword = () => {
     //return;
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/reset-password", {
-        email,
-        code,
-        newPassword,
-      });
+      const { data } = await axios.post(
+        "https://kursonomia-server.onrender.com/api/reset-password",
+        {
+          email,
+          code,
+          newPassword,
+        }
+      );
       setEmail("");
       setCode("");
       setNewPassword("");

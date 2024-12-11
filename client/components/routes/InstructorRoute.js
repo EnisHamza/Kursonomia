@@ -15,7 +15,9 @@ const InstructorRoute = ({ children }) => {
 
   const fetchInstructor = async () => {
     try {
-      const { data } = await axios.get("/api/current-instructor");
+      const { data } = await axios.get(
+        "https://kursonomia-server.onrender.com/api/current-instructor"
+      );
       //console.log(data);
       if (data.ok) setOk(true);
     } catch (err) {

@@ -14,7 +14,9 @@ const UserRoute = ({ children, showNav = true }) => {
   }, []);
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("/api/current-user");
+      const { data } = await axios.get(
+        "https://kursonomia-server.onrender.com/api/current-user"
+      );
       //console.log(data);
       if (data.ok) setOk(true);
     } catch (err) {

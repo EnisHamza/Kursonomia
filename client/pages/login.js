@@ -27,7 +27,7 @@ const Login = () => {
     //console.table({ name, email, password });
     try {
       setLoading(true);
-      const { data } = await axios.post("api/login", {
+      const { data } = await axios.post("/api/login", {
         email,
         password,
       });
