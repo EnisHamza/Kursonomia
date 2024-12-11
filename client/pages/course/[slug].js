@@ -1,14 +1,3 @@
-import { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
-import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
-import PreviewModal from "../../components/modal/PreviewModal";
-import SingleCourseLessons from "../../components/cards/SingleCourseLessons";
-import { Context } from "../../context";
-import { toast } from "react-toastify";
-import { loadStripe } from "@stripe/stripe-js";
-import { Rate, Card, Button, Form, Input, Alert, Space } from "antd";
-
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
@@ -16,7 +5,7 @@ const SingleCourse = ({ course }) => {
   const [enrolled, setEnrolled] = useState({});
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [reviews, setReviews] = useState(course.reviews || []);
+  const [reviews, setReviews] = useState(course?.reviews || []); // Default to empty array
   const [averageRating, setAverageRating] = useState(0);
 
   const {
@@ -218,13 +207,22 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-/*export async function getServerSideProps({ query }) {
-  const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
-  return {
-    props: {
-      course: data,
-    },
-  };
-}*/
+export async function getServerSideProps({ query }) {
+  try {
+    const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
+    return {
+      props: {
+        course: data || {}, // Return an empty object if `data` is undefined
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching course data:", error);
+    return {
+      props: {
+        course: {}, // Return an empty object in case of an error
+      },
+    };
+  }
+}
 
 export default SingleCourse;
