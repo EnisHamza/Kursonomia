@@ -27,15 +27,12 @@ const Register = () => {
     //console.table({ name, email, password });
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `https://kursonomia-server.onrender.com/api/register`,
-        {
-          name,
-          email,
-          password,
-          isInstructor,
-        }
-      );
+      const { data } = await axios.post(`/api/register`, {
+        name,
+        email,
+        password,
+        isInstructor,
+      });
       //console.log("Register Response", data);
       toast("Registration Successful. Please Login");
       setName("");

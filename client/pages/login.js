@@ -27,13 +27,10 @@ const Login = () => {
     //console.table({ name, email, password });
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "https://kursonomia-server.onrender.com/api/login",
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post("/api/login", {
+        email,
+        password,
+      });
       //console.log("Login Response", data);
       //setLoading(false);
       dispatch({
