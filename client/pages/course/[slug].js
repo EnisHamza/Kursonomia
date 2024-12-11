@@ -218,7 +218,7 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-// Use getStaticProps for Static Generation
+// Use getStaticPaths for Static Generation
 export async function getStaticPaths() {
   const { data } = await axios.get(`${process.env.API}/courses`);
   const paths = data.map((course) => ({
@@ -226,8 +226,8 @@ export async function getStaticPaths() {
   }));
 
   return {
-    paths,
-    fallback: "blocking", // or 'true' if you want a fallback
+    paths, // Pre-generate paths at build time
+    fallback: false, // Ensure all pages are generated at build time (no runtime generation)
   };
 }
 
