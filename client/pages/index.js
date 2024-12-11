@@ -39,7 +39,7 @@ const Index = ({ courses = [] }) => {
   );
 };
 
-export async function getServerSideProps() {
+/*export async function getServerSideProps() {
   try {
     const { data } = await axios.get(`${process.env.API}/courses`);
     return {
@@ -55,6 +55,6 @@ export async function getServerSideProps() {
       },
     };
   }
-}
+}*/
 
 export default Index;

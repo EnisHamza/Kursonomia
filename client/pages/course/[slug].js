@@ -207,7 +207,7 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
+/*export async function getServerSideProps({ query }) {
   try {
     const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
     return {
@@ -223,6 +223,6 @@ export async function getServerSideProps({ query }) {
       },
     };
   }
-}
+}*/
 
 export default SingleCourse;
