@@ -47,13 +47,23 @@ const Index = ({ courses }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
-  return {
-    props: {
-      courses: data,
-    },
-  };
+export async function getStaticProps() {
+  try {
+    const { data } = await axios.get(`${process.env.API}/courses`);
+    return {
+      props: {
+        courses: data,
+      },
+      revalidate: 60, // Optional: Revalidate every 60 seconds (if needed)
+    };
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    return {
+      props: {
+        courses: [],
+      },
+    };
+  }
 }
 
 export default Index;

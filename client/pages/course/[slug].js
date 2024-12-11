@@ -218,13 +218,37 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
-  const { data } = await axios.get(`${pzrocess.env.API}/course/${query.slug}`);
+// Use getStaticProps for Static Generation
+export async function getStaticPaths() {
+  const { data } = await axios.get(`${process.env.API}/courses`);
+  const paths = data.map((course) => ({
+    params: { slug: course.slug },
+  }));
+
   return {
-    props: {
-      course: data,
-    },
+    paths,
+    fallback: "blocking", // or 'true' if you want a fallback
   };
+}
+
+export async function getStaticProps({ params }) {
+  try {
+    const { data } = await axios.get(
+      `${process.env.API}/course/${params.slug}`
+    );
+    return {
+      props: {
+        course: data,
+      },
+      revalidate: 60, // Optional: revalidate after 60 seconds
+    };
+  } catch (error) {
+    return {
+      props: {
+        course: null,
+      },
+    };
+  }
 }
 
 export default SingleCourse;
