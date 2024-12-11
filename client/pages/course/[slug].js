@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
-import { Card, Rate, Input, Form, Button, Space, Alert } from "antd";
-import { Context } from "../context";
-import SingleCourseJumbotron from "../components/SingleCourseJumbotron";
-import PreviewModal from "../components/PreviewModal";
-import SingleCourseLessons from "../components/SingleCourseLessons";
+import { useRouter } from "next/router";
+import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
+import PreviewModal from "../../components/modal/PreviewModal";
+import SingleCourseLessons from "../../components/cards/SingleCourseLessons";
+import { Context } from "../../context";
+import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
+import { Rate, Card, Button, Form, Input, Alert, Space } from "antd";
 
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
