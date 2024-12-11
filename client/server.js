@@ -12,7 +12,7 @@ app
     const server = express();
     if (dev) {
       server.use(
-        "https://kursonomia-server.onrender.com/api",
+        "/api",
         createProxyMiddleware({
           target: "https://kursonomia-server.onrender.com",
           changeOrigin: true,
