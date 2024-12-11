@@ -47,13 +47,13 @@ const Index = ({ courses }) => {
   );
 };
 
-export async function getServerSideProps() {
+/*export async function getServerSideProps() {
   const { data } = await axios.get(`${process.env.API}/courses`);
   return {
     props: {
       courses: data,
     },
   };
-}
+}*/
 
 export default Index;
