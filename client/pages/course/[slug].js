@@ -143,7 +143,7 @@ const SingleCourse = ({ course }) => {
         preview={preview}
       />
 
-      {course.lessons && (
+      {course?.lessons?.length > 0 && (
         <SingleCourseLessons
           lessons={course.lessons}
           setPreview={setPreview}
@@ -151,6 +151,7 @@ const SingleCourse = ({ course }) => {
           setShowModal={setShowModal}
         />
       )}
+
       <div className="bg-light border mt-5">
         <div className="reviews-section mt-5 mx-5 col-md-10">
           <h3 className="mb-3 mt-4">Reviews</h3>
@@ -218,8 +219,7 @@ const SingleCourse = ({ course }) => {
 };
 
 // Fetch course data on the server side
-/*
-export async function getServerSideProps({ query }) {
+/*export async function getServerSideProps({ query }) {
   try {
     const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
     return {
