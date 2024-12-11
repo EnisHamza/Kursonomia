@@ -1,3 +1,12 @@
+import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { Card, Rate, Input, Form, Button, Space, Alert } from "antd";
+import { Context } from "../context";
+import SingleCourseJumbotron from "../components/SingleCourseJumbotron";
+import PreviewModal from "../components/PreviewModal";
+import SingleCourseLessons from "../components/SingleCourseLessons";
+
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
@@ -11,6 +20,8 @@ const SingleCourse = ({ course }) => {
   const {
     state: { user },
   } = useContext(Context);
+
+  const router = useRouter();
 
   useEffect(() => {
     // Calculate average rating when reviews change
@@ -39,9 +50,6 @@ const SingleCourse = ({ course }) => {
     console.log("Check Enrollment", data);
     setEnrolled(data);
   };
-
-  const router = useRouter();
-  const { slug } = router.query;
 
   const handlePaidEnrollment = async () => {
     try {
@@ -207,7 +215,9 @@ const SingleCourse = ({ course }) => {
   );
 };
 
-/*export async function getServerSideProps({ query }) {
+// Fetch course data on the server side
+/*
+export async function getServerSideProps({ query }) {
   try {
     const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
     return {
