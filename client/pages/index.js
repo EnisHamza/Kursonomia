@@ -39,25 +39,6 @@ const Index = ({ courses = [] }) => {
   );
 };
 
-// Fetch courses on the server side using `getServerSideProps`
-export async function getServerSideProps() {
-  try {
-    const { data } = await axios.get(`${process.env.API}/courses`);
-    return {
-      props: {
-        courses: data || [], // Default to an empty array if `data` is undefined
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching courses:", error);
-    return {
-      props: {
-        courses: [], // Return an empty array if the fetch fails
-      },
-    };
-  }
-}
-
 export async function getServerSideProps() {
   try {
     const { data } = await axios.get(`${process.env.API}/courses`);
