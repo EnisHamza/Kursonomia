@@ -14,7 +14,9 @@ const InstructorIndex = () => {
 
   const loadCourses = async () => {
     try {
-      const { data } = await axios.get("/api/instructor-course");
+      const { data } = await axios.get(
+        "https://kursonomia-server.onrender.com/api/instructor-course"
+      );
       setCourses(data);
     } catch (error) {
       console.error("Error loading courses:", error);

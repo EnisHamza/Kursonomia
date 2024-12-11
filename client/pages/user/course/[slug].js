@@ -33,33 +33,44 @@ const SingleCourse = () => {
   }, [course]);
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/user/course/${slug}`);
+    const { data } = await axios.get(
+      `https://kursonomia-server.onrender.com/api/user/course/${slug}`
+    );
     setCourse(data);
   };
 
   const loadCompletedLessons = async () => {
-    const { data } = await axios.post("/api/list-completed", {
-      courseId: course._id,
-    });
+    const { data } = await axios.post(
+      "https://kursonomia-server.onrender.com/api/list-completed",
+      {
+        courseId: course._id,
+      }
+    );
     console.log("Completed Lessons", data);
     setCompletedLessons(data);
   };
 
   const markCompleted = async () => {
-    const { data } = await axios.post("/api/mark-completed", {
-      courseId: course._id,
-      lessonId: course.lessons[clicked]._id,
-    });
+    const { data } = await axios.post(
+      "https://kursonomia-server.onrender.com/api/mark-completed",
+      {
+        courseId: course._id,
+        lessonId: course.lessons[clicked]._id,
+      }
+    );
     console.log(data);
     setCompletedLessons([...completedLesssons, course.lessons[clicked]._id]);
   };
 
   const markIncompleted = async () => {
     try {
-      const { data } = await axios.post("/api/mark-incomplete", {
-        courseId: course._id,
-        lessonId: course.lessons[clicked]._id,
-      });
+      const { data } = await axios.post(
+        "https://kursonomia-server.onrender.com/api/mark-incomplete",
+        {
+          courseId: course._id,
+          lessonId: course.lessons[clicked]._id,
+        }
+      );
       console.log(data);
       const all = completedLesssons;
       console.log("ALL", all);

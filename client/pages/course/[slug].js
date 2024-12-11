@@ -46,7 +46,9 @@ const SingleCourse = ({ course }) => {
   }, [user, course]);
 
   const checkEnrollment = async () => {
-    const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+    const { data } = await axios.get(
+      `https://kursonomia-server.onrender.com/api/check-enrollment/${course._id}`
+    );
     console.log("Check Enrollment", data);
     setEnrolled(data);
   };
@@ -63,7 +65,9 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
 
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `https://kursonomia-server.onrender.com/api/paid-enrollment/${course._id}`
+      );
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
       stripe.redirectToCheckout({ sessionId: data });
     } catch (err) {
@@ -82,7 +86,9 @@ const SingleCourse = ({ course }) => {
         return router.push(`/user/course/${enrolled.course.slug}`);
 
       setLoading(true);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `https://kursonomia-server.onrender.com/api/free-enrollment/${course._id}`
+      );
       toast(data.message);
       setLoading(false);
       return router.push(`/user/course/${data.course.slug}`);
@@ -96,7 +102,7 @@ const SingleCourse = ({ course }) => {
   const handleReviewSubmit = async () => {
     try {
       const { data } = await axios.post(
-        `/api/course/${course._id}/review`,
+        `https://kursonomia-server.onrender.com/api/course/${course._id}/review`,
         {
           rating,
           comment,

@@ -40,7 +40,9 @@ const EditCourse = () => {
   }, [slug]);
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/course/${slug}`);
+    const { data } = await axios.get(
+      `https://kursonomia-server.onrender.com/api/course/${slug}`
+    );
     console.log(data);
     if (data) setValues(data);
     if (data && data.image) setImage(data.image);
@@ -58,9 +60,12 @@ const EditCourse = () => {
 
     Resizer.imageFileResizer(file, 720, 500, "JPEG", 100, 0, async (uri) => {
       try {
-        let { data } = await axios.post("/api/course/upload-image", {
-          image: uri,
-        });
+        let { data } = await axios.post(
+          "https://kursonomia-server.onrender.com/api/course/upload-image",
+          {
+            image: uri,
+          }
+        );
         console.log("Image Uploaded", data);
         setImage(data);
         setValues({ ...values, loading: false });
@@ -76,7 +81,10 @@ const EditCourse = () => {
     //console.log("Remove Image");
     try {
       setValues({ ...values, loading: true });
-      const res = await axios.post("/api/course/remove-image", { image });
+      const res = await axios.post(
+        "https://kursonomia-server.onrender.com/api/course/remove-image",
+        { image }
+      );
       setImage({});
       setPreview("");
       setUploadButtonText("Upload Image");
@@ -92,10 +100,13 @@ const EditCourse = () => {
     e.preventDefault();
     //console.log(values);
     try {
-      const { data } = await axios.put(`/api/course/${slug}`, {
-        ...values,
-        image,
-      });
+      const { data } = await axios.put(
+        `https://kursonomia-server.onrender.com/api/course/${slug}`,
+        {
+          ...values,
+          image,
+        }
+      );
       toast("Great! Course Updated");
       router.push("/instructor");
     } catch (err) {
@@ -112,14 +123,16 @@ const EditCourse = () => {
     //return;
     setValues({ ...values, lessons: allLessons });
 
-    const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
+    const { data } = await axios.put(
+      `https://kursonomia-server.onrender.com/api/course/${slug}/${removed[0]._id}`
+    );
     console.log("Lesson Deleted", data);
   };
 
   const handleVideo = async (e) => {
     if (current.video && current.video.Location) {
       const res = await axios.post(
-        `/api/course/video-remove/${values.instructor._id}`,
+        `https://kursonomia-server.onrender.com/api/course/video-remove/${values.instructor._id}`,
         current.video
       );
       console.log("Remove", res);
@@ -134,7 +147,7 @@ const EditCourse = () => {
     videoData.append("courseId", values._id);
 
     const { data } = await axios.post(
-      `/api/course/video-upload/${values.instructor._id}`,
+      `https://kursonomia-server.onrender.com/api/course/video-upload/${values.instructor._id}`,
       videoData,
       {
         onUploadProgress: (e) =>
@@ -150,7 +163,7 @@ const EditCourse = () => {
     e.preventDefault();
 
     const { data } = await axios.put(
-      `/api/course/lesson/${slug}/${current._id}`,
+      `https://kursonomia-server.onrender.com/api/course/lesson/${slug}/${current._id}`,
       current
     );
     setUploadVideoButtonText("Upload Video");

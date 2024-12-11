@@ -20,14 +20,18 @@ const InstructorEarning = () => {
   });
 
   const sendBalanceRequest = async () => {
-    const { data } = await axios.get("/api/instructor/balance");
+    const { data } = await axios.get(
+      "https://kursonomia-server.onrender.com/api/instructor/balance"
+    );
     setBalance(data);
   };
 
   const handlePayoutSettings = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/instructor/payout-settings");
+      const { data } = await axios.get(
+        "https://kursonomia-server.onrender.com/api/instructor/payout-settings"
+      );
       window.location.href = data;
     } catch (err) {
       setLoading(false);
