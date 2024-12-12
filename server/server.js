@@ -14,7 +14,7 @@ const csrfProtection = csrf({ cookie: true });
 //express app
 const app = express();
 
-mongoose.set("strictQuery", false);
+//mongoose.set("strictQuery", false);
 
 //databaza
 mongoose
@@ -37,7 +37,7 @@ app.use(cookieParser());
 const routeFiles = readdirSync("./routes");
 routeFiles.forEach(async (file) => {
   const route = await import(`./routes/${file}`);
-  app.use("https://kursonomia-server.onrender.com/api", route.default); // Ensure your route exports are default
+  app.use("/api", route.default); // Ensure your route exports are default
 });
 
 //csrf
