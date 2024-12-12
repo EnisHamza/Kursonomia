@@ -43,7 +43,7 @@ routeFiles.forEach(async (file) => {
 //csrf
 app.use(csrfProtection);
 
-app.get("https://kursonomia-server.onrender.com/api/csrf-token", (req, res) => {
+app.get("/api/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
