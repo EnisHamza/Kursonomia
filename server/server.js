@@ -37,7 +37,7 @@ app.use(cookieParser());
 const routeFiles = readdirSync("./routes");
 routeFiles.forEach(async (file) => {
   const route = await import(`./routes/${file}`);
-  app.use("/api", route.default); // Ensure your route exports are default
+  app.use("https://kursonomia-server.onrender.com/api", route.default); // Ensure your route exports are default
 });
 
 //csrf
