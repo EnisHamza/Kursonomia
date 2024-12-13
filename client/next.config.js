@@ -8,6 +8,7 @@ module.exports = {
       config.plugins.push(
         new webpack.IgnorePlugin({
           resourceRegExp: /mongoose/,
+          contextRegExp: /server/,
         }),
         new webpack.IgnorePlugin({
           resourceRegExp: /require_optional/,
