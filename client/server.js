@@ -12,9 +12,9 @@ app
     const server = express();
     if (dev) {
       server.use(
-        "https://kursonomia-server.onrender.com/api",
+        "/api",
         createProxyMiddleware({
-          target: "https://kursonomia-server.onrender.com",
+          target: "http://localhost:8000",
           changeOrigin: true,
         })
       );
@@ -24,7 +24,7 @@ app
     });
     server.listen(3000, (err) => {
       if (err) throw err;
-      console.log("> Ready on https://kursonomia-server.onrender.com");
+      console.log("> Ready on http://localhost:8000");
     });
   })
   .catch((err) => {

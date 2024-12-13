@@ -59,6 +59,7 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).send("No user found");
     const match = await comparePassword(password, user.password);
     if (!match) return res.status(400).send("Wrong Password");
+
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });

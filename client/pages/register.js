@@ -5,6 +5,7 @@ import { SyncOutlined, LoginOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
+import user from "../../server/models/user";
 
 const Register = () => {
   const [name, setName] = useState();
@@ -41,7 +42,7 @@ const Register = () => {
       setIsInstructor("");
       setLoading(false);
     } catch (err) {
-      toast.error(err.response.data);
+      toast(err.response.data);
       setLoading(false);
     }
   };

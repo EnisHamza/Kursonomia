@@ -1,13 +1,10 @@
 import { useReducer, createContext, useEffect } from "react";
 import axios from "axios";
 import router, { useRouter } from "next/router";
-
 const initialState = {
   user: null,
 };
-
 const Context = createContext();
-
 const rootReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
@@ -18,19 +15,15 @@ const rootReducer = (state, action) => {
       return state;
   }
 };
-
 const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
-
   const router = useRouter();
-
   useEffect(() => {
     dispatch({
       type: "LOGIN",
       payload: JSON.parse(window.localStorage.getItem("user")),
     });
   }, []);
-
   axios.interceptors.response.use(
     function (response) {
       return response;
@@ -40,7 +33,7 @@ const Provider = ({ children }) => {
       if (res.status === 401 && res.config && !res.config__isRetryRequest) {
         return new Promise((resolve, reject) => {
           axios
-            .get("https://kursonomia-server.onrender.com/api/logout")
+            .get("/api/logout")
             .then((data) => {
               console.log("/401 error > logout");
               dispatch({ type: "LOGOUT" });
@@ -56,21 +49,16 @@ const Provider = ({ children }) => {
       return Promise.reject(error);
     }
   );
-
   useEffect(() => {
     const getCsrfToken = async () => {
-      const { data } = await axios.get(
-        "https://kursonomia-server.onrender.com/api/csrf-token"
-      );
+      const { data } = await axios.get("/api/csrf-token");
       //console.log("CSRF", data);
-      axios.defaults.headers["X-CSRF-Token"] = data.getCsrfToken;
+      axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };
     getCsrfToken();
   }, []);
-
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
   );
 };
-
 export { Context, Provider };

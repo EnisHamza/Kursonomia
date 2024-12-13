@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const { ObjectId } = Schema;
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
