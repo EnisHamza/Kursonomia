@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const { ObjectId } = Schema;
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
