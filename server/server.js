@@ -28,7 +28,13 @@ mongoose
   .catch((err) => console.log("DB Connection Error ->", err));
 
 //middleware
-app.use(cors({ origin: "https://kursonomia.onrender.com" }));
+app.use(
+  cors({
+    origin: "https://kursonomia.onrender.com", // Your frontend's URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow specific methods if needed
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify headers if required
+  })
+);
 app.use(express.json({ limit: "5mb" }));
 app.use(morgan("dev"));
 app.use(cookieParser());
