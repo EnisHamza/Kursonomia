@@ -28,7 +28,7 @@ mongoose
   .catch((err) => console.log("DB Connection Error ->", err));
 
 //middleware
-app.use(cors());
+app.use(cors({ origin: "https://kursonomia.onrender.com" }));
 app.use(express.json({ limit: "5mb" }));
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -43,7 +43,7 @@ routeFiles.forEach(async (file) => {
 //csrf
 app.use(csrfProtection);
 
-app.get("/api/csrf-token", (req, res) => {
+app.get("https://kursonomia-server.onrender.com/api/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
