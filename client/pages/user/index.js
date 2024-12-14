@@ -21,7 +21,9 @@ const UserIndex = () => {
   const loadCourses = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/user-courses");
+      const { data } = await axios.get(
+        "https://kursonomia-server.onrender.com/api/user-courses"
+      );
       setCourses(data);
       setLoading(false);
     } catch (err) {
