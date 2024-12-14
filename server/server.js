@@ -14,7 +14,7 @@ const csrfProtection = csrf({ cookie: true });
 //express app
 const app = express();
 
-//mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", false);
 
 //databaza
 mongoose
